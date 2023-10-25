@@ -1,0 +1,32 @@
+type Bookmark @key(fields: "id") {
+  id: ID!
+  title: String!
+  description: String
+  link: String!
+  user: User
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external
+  bookmarks: [Bookmark]
+  firstName: String
+  middleName: String
+  lastName: String
+  email: String
+}
+
+extend type Query {
+  bookmarks: [Bookmark]
+  bookmarkByUser(userId: Int): [Bookmark]
+}
+
+extend type Mutation {
+  createBookmark(userId: Int!, title: String!, link: String!): Bookmark
+  modifyBookmark(
+    id: Int!
+    title: String
+    description: String
+    link: String
+  ): Bookmark
+  deleteBookmark(id: Int!): Bookmark
+}

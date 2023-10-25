@@ -1,0 +1,27 @@
+type User @key(fields: "id") {
+  id: ID!
+  firstName: String
+  middleName: String
+  lastName: String
+  email: String!
+  password: String!
+  bookmarks: [Bookmark]
+}
+
+extend type Query {
+  users: [User]
+  user(id: Int!): User
+}
+extend type Mutation {
+  modifyName(
+    id: Int!
+    firstName: String
+    middleName: String
+    lastName: String
+  ): User
+  deleteUser(id: Int!): User!
+}
+
+type Mutation {
+  createUser(email: String!, password: String!): User
+}
