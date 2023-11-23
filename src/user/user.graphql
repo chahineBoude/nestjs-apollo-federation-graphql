@@ -8,14 +8,10 @@ type User @key(fields: "id") {
   bookmarks: [Bookmark]
 }
 
-extend type Bookmark @key(fields: "id") {
-  id: ID! @external
-  title: String!
-}
-
 extend type Query {
   users: [User]
   user(id: Int!): User
+  logIn(email: String!, password: String!): String
 }
 extend type Mutation {
   modifyName(

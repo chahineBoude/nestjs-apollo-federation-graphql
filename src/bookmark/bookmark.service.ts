@@ -7,7 +7,13 @@ export class BookmarkService {
   constructor(private prisma: PrismaService) {}
 
   async getBookmarks() {
-    return await this.prisma.bookmark.findMany();
+    const data = await this.prisma.bookmark.findMany({
+      include: {
+        user: true,
+      },
+    });
+    console.log(data);
+    return data;
   }
 
   async getBookmarkByUser(id: number) {

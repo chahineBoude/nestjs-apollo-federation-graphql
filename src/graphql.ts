@@ -16,16 +16,6 @@ export class Bookmark {
     user?: Nullable<User>;
 }
 
-export class User {
-    id: string;
-    bookmarks?: Nullable<Nullable<Bookmark>[]>;
-    firstName?: Nullable<string>;
-    middleName?: Nullable<string>;
-    lastName?: Nullable<string>;
-    email: string;
-    password: string;
-}
-
 export abstract class IQuery {
     abstract bookmarks(): Nullable<Nullable<Bookmark>[]> | Promise<Nullable<Nullable<Bookmark>[]>>;
 
@@ -34,6 +24,8 @@ export abstract class IQuery {
     abstract users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
 
     abstract user(id: number): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract logIn(email: string, password: string): Nullable<string> | Promise<Nullable<string>>;
 }
 
 export abstract class IMutation {
@@ -48,6 +40,16 @@ export abstract class IMutation {
     abstract deleteUser(id: number): User | Promise<User>;
 
     abstract createUser(email: string, password: string): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export class User {
+    id: string;
+    firstName?: Nullable<string>;
+    middleName?: Nullable<string>;
+    lastName?: Nullable<string>;
+    email: string;
+    password: string;
+    bookmarks?: Nullable<Nullable<Bookmark>[]>;
 }
 
 type Nullable<T> = T | null;

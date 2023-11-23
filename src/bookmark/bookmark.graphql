@@ -6,15 +6,6 @@ type Bookmark @key(fields: "id") {
   user: User
 }
 
-extend type User @key(fields: "id") {
-  id: ID! @external
-  bookmarks: [Bookmark]
-  firstName: String
-  middleName: String
-  lastName: String
-  email: String
-}
-
 extend type Query {
   bookmarks: [Bookmark]
   bookmarkByUser(userId: Int): [Bookmark]

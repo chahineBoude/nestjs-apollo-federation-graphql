@@ -6,6 +6,8 @@ import {
   ResolveReference,
 } from '@nestjs/graphql';
 import { UserService } from './user.service';
+import { UseGuards } from '@nestjs/common';
+import { JwtGuard } from './guard/jwt.guard';
 
 @Resolver('User')
 export class UserResolver {
@@ -19,6 +21,15 @@ export class UserResolver {
   @Query()
   async user(@Args('id') id: number) {
     return await this.userService.getUser(id);
+  }
+
+  @Query()
+  async logIn(
+    @Args('email') email: string,
+    @Args('password') password: string,
+  ) {
+    const token = await this.userService.logIn(email, password);
+    return token.access_token.toString();
   }
 
   @Mutation()
